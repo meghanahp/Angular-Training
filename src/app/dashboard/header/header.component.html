@@ -1,0 +1,10 @@
+<section class="header">
+    <ul class="menu">
+        <li><a (click)="navigateToUrl(path.PRODUCTS)"
+            [ngClass]="currentUrl == path.PRODUCTS ? 'hightlight': ''">Products</a></li>
+        <li><a (click)="navigateToUrl(path.USERS)" [ngClass]="currentUrl == path.USERS ? 'hightlight': ''">Users</a></li>
+        <li><a (click)="logout()">Logout</a></li>
+        
+    </ul>    
+   
+</section>

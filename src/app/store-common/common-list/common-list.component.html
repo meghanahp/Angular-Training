@@ -1,0 +1,39 @@
+<infinite-scroll (loadMore)="loadMoreData" style="height: 400px; overflow-y: auto">
+    <section class="container">
+        <h1>{{listData?.title}}</h1>
+        
+        <span class="float-right">
+            <button class="btn btn-primary" (click)="listData?.addEditCallback()">Add New</button></span>
+    
+        <table class="table table-bordered">
+            <tr>
+                <th *ngFor="let header of listData?.headers">{{header}}</th>
+                <th>Actions</th>
+            </tr>
+            <tbody>
+                <tr *ngFor="let serverData of listData?.data">
+                    <td *ngFor="let row of listData?.dataRows">
+                        <span *ngIf="row.dataType == dataType.STRING">
+                            {{serverData[row.dataField]}}</span>
+                        <span *ngIf="row.dataType == dataType.CURRENCY">
+                            {{serverData[row.dataField] | currency}}</span>
+                        <span *ngIf="row.dataType == dataType.IMAGE">
+                            <img src="{{serverData[row.dataField]}}" />
+                        </span>
+                        <span *ngIf="row.dataType == dataType.OBJECT" [innerHTML]="getDataValue(row, serverData) | rating">
+                        </span>
+                    </td>
+                    <td>
+                        <a class="text-link" (click)="listData?.addEditCallback(serverData)"
+                            *ngIf="listData?.addEditCallback">Edit | </a>
+                        <a class="text-danger" (click)="listData?.deleteCallback(serverData)"
+                            *ngIf="listData?.deleteCallback">Delete</a>
+                    </td>
+                </tr>
+                <tr *ngIf="!listData?.data">
+                    <td colspan="headers.length">No Data Available</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</infinite-scroll>
