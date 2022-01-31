@@ -7,16 +7,9 @@ import { SharedService } from '../shared/shared.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit, OnDestroy {
+export class ProductsComponent implements OnInit {
 userSubscription: Subscription;
-  constructor(private sharedService: SharedService) { 
-      this.userSubscription = this.sharedService.onUpdateSession().subscribe(data => {
-        console.log(data);
-      })
-  }
-
-  ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
+  constructor() {
   }
 
   ngOnInit(): void {

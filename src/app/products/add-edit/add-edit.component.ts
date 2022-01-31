@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Path, Product } from 'src/app/models';
+import { MaskDataType, Path, Product } from 'src/app/models';
 import { ProductsService } from '../products.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class AddEditComponent implements OnInit {
   productId;
   productDetails: Product;
   isSubmitted = false;
+  maskDataType = MaskDataType;
   constructor(private productService: ProductsService,
     private formBuilder: FormBuilder,
     private router: Router,

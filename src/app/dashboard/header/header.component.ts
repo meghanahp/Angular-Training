@@ -1,29 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/security/auth.service';
 import { Path } from 'src/app/models/constant';
-import { filter } from 'rxjs/operators';
+import { SharedService } from 'src/app/shared/shared.service';
+import { User } from 'src/app/models';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-path = Path;
-currentUrl;
+export class HeaderComponent implements OnInit, OnDestroy {
+  path = Path;
+  currentSession: User;
+  subscription: Subscription;
   constructor(
     private authService: AuthService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
-      this.router.events.pipe(filter(ev => ev instanceof NavigationEnd)). subscribe((ev => {
-        this.currentUrl = ev['url'].replace('/', '');
-       }));
-     }
+    private sharedService: SharedService) {
+    this.subscription = this.sharedService.onUpdateSession().subscribe(response => {
+      this.currentSession = response;
+    })
+  }
 
   ngOnInit(): void {
-    
-    this.authService.getSessionUser();
   }
 
   navigateToUrl(url) {
@@ -32,6 +33,10 @@ currentUrl;
 
   logout() {
     this.authService.logout();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

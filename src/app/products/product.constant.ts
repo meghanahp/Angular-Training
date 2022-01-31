@@ -19,5 +19,11 @@ export const ProductDataFields = {
     PRICE: "price"
 }
 
+export const ProductSort = {
+    PRICE_HIGH_LOW: 'Price high-low',
+    PRICE_LOW_HIGH: 'Price low-high',
+    RATINGS_HIGH_LOW: 'Rating high-low'
+}
+
 
 export class ProductConstants {}

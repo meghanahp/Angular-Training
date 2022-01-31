@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { ListData, RowData } from 'src/app/models/ui/list-data';
-import { DataType } from '../../models/constant';
-
+import { DataType, Pagination } from '../../models/constant';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { FilterRequestDataBlk } from 'src/app/models/request/filter-request';
 @Component({
   selector: 'common-list',
   templateUrl: './common-list.component.html',
@@ -11,37 +13,31 @@ export class CommonListComponent implements OnInit {
   @Input()
   listData: ListData;
   dataType = DataType;
+  request: FilterRequestDataBlk = new FilterRequestDataBlk();
+  searchVal: Subject<string> = new Subject<string>();
   constructor() { }
 
   ngOnInit(): void {
+    this.request.pageSize = Pagination.PAGE_SIZE;
+    this.loadMoreData();
+    this.searchVal.pipe(debounceTime(200), distinctUntilChanged()).subscribe(key => {
+      this.request.keyword = key;
+      this.loadMoreData();
+    })
   }
 
   loadMoreData = ()  => {
-    alert("calld");
     if(this.listData?.getDataCallback)
-    this.listData?.getDataCallback();
+    this.listData?.getDataCallback(this.request);
   }
 
-  getDataValue(row: RowData, serverData) {
-     if(serverData[row.dataField] instanceof Object) {
-      return this.getObjectNthAttributeValue(serverData[row.dataField], row.targetDataFieldValue);
-     }
+  searchData(keyword) {
+    this.searchVal.next(keyword);
   }
 
-  getObjectNthAttributeValue(obj, key) {
-      if(obj instanceof Object) {
-          if(obj[key]) return obj[key];
-          else {
-            obj.keys.forEach(element => {
-              if(obj[element] instanceof Object) {
-              this.getObjectNthAttributeValue(obj[element], key);
-              } else {
-                if(element == key) {
-                  return obj[element]
-                }
-              }
-            });
-          }
-      }
+  sortData(val) {
+    this.request.sortColumn = val;
+    if(this.listData?.getDataCallback)
+    this.listData?.getDataCallback(this.request);
   }
 }

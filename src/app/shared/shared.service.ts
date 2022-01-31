@@ -9,7 +9,7 @@ export class SharedService {
   private sessionUserSubject =new BehaviorSubject<User>(null);
   constructor() { }
 
-  updateSessionUserDetails(sessionData: User): void {
+  updateSessionUserDetails(sessionData): void {
     this.sessionUserSubject.next(sessionData);
   }
 

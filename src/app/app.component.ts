@@ -11,26 +11,8 @@ import { AuthService } from './security/auth.service';
 })
 export class AppComponent {
   title = 'Online-Store';
-  loading = false;
   constructor(private router: Router,
     private authService: AuthService,
-    ) {
-      this.router.events.subscribe(ev => {
-        if (ev instanceof NavigationStart) {
-          this.loading = true;
-        }
-        if (
-          ev instanceof NavigationEnd ||
-          ev instanceof NavigationCancel ||
-          ev instanceof NavigationError
-        ) {
-          this.loading = false;
-          this.loadUserDetails();
-        }
-      });   
-}
+    ) {}
 
-  loadUserDetails() {
-    this.authService.refreshSessionUserDetails();
-  }
 }

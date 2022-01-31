@@ -1,0 +1,11 @@
+<ul *ngIf="data">
+    <li>{{data.name}}
+        &nbsp;&nbsp;
+        <a (click)="addChildren()"><i class="fa fa-plus" aria-hidden="true"></i></a> &nbsp;&nbsp;
+        <a (click)="deleteChildrens()" *ngIf="data.childerns?.length >0"><i class="fa fa-minus"
+            aria-hidden="true"></i></a>
+    </li>
+    <ul *ngIf="data?.childerns">
+        <app-child [data]="node" *ngFor="let node of data.childerns"></app-child>
+    </ul>
+</ul>

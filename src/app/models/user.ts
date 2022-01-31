@@ -16,7 +16,6 @@ export class UserName {
 export class Address {
     city: string;
     street: string;
-    number: number;
     zipcode: string;
     geolocation: Geolocation;
 }

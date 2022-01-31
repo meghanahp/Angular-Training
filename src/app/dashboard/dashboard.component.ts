@@ -9,10 +9,10 @@ import { Path } from '../models';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.router.navigateByUrl(Path.PRODUCTS);
+    this.router.navigateByUrl(Path.PRODUCTS)
   }
 
 }

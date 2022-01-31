@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './security/auth.guard';
 import { LoginComponent } from './security/login/login.component';
 import { Path } from './models/constant';
+import { ParentComponent } from './tree-view/parent/parent.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
         path: Path.USERS,
         loadChildren: () => import('./users/users.module').then(users => users.UsersModule)
       },
+      {
+        path: Path.TREE_VIEW,
+       component: ParentComponent
+      }
     
     ]
   },

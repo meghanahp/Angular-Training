@@ -1,15 +1,33 @@
-<infinite-scroll (loadMore)="loadMoreData" style="height: 400px; overflow-y: auto">
-    <section class="container">
-        <h1>{{listData?.title}}</h1>
-        
-        <span class="float-right">
-            <button class="btn btn-primary" (click)="listData?.addEditCallback()">Add New</button></span>
-    
-        <table class="table table-bordered">
-            <tr>
-                <th *ngFor="let header of listData?.headers">{{header}}</th>
-                <th>Actions</th>
-            </tr>
+<h1>{{listData?.title}}</h1>
+<span>
+    <button class="btn btn-primary" *ngIf="listData?.addEditCallback" (click)="listData?.addEditCallback()">Add
+        New</button>
+</span>
+<div class="col-md-12">
+    <div class="input-group mb-3 ">
+        <input type="text" id="search" (keyup)="searchData($event?.target?.value)" placeholder="Search .."
+            title="Type ..">
+
+        <div class="float-right mb-3">
+            <label for="sort">Sort By: &nbsp;</label>
+            <select name="sort" (change)="sortData($event.target?.value)">
+                <option *ngFor="let header of listData?.sortableColumns" [value]="header">{{header}}</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row col-md-12">
+    <div class="col-md-3">
+        <ng-content></ng-content>
+    </div>
+    <div class="col-md-9">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th *ngFor="let header of listData?.headers">{{header}}</th>
+                    <th *ngIf="listData?.deleteCallback || listData?.addEditCallback">Actions</th>
+                </tr>
+            </thead>
             <tbody>
                 <tr *ngFor="let serverData of listData?.data">
                     <td *ngFor="let row of listData?.dataRows">
@@ -20,14 +38,19 @@
                         <span *ngIf="row.dataType == dataType.IMAGE">
                             <img src="{{serverData[row.dataField]}}" />
                         </span>
-                        <span *ngIf="row.dataType == dataType.OBJECT" [innerHTML]="getDataValue(row, serverData) | rating">
+                        <span *ngIf="row.dataType == dataType.RATINGS"
+                            [innerHTML]="serverData[row.dataField] | formatObj: row.targetDataFieldValue | rating">
                         </span>
+                        <span *ngIf="row.dataType == dataType.PHONE">
+                            {{serverData[row.dataField]}}</span>
+                        <span *ngIf="row.dataType == dataType.OBJECT">
+                            {{serverData[row.dataField] | formatObj: row.targetDataFieldValue}}</span>
                     </td>
-                    <td>
+                    <td *ngIf="listData?.deleteCallback || listData?.addEditCallback">
                         <a class="text-link" (click)="listData?.addEditCallback(serverData)"
-                            *ngIf="listData?.addEditCallback">Edit | </a>
+                            *ngIf="listData?.addEditCallback"><i class="fa fa-edit"></i></a>&nbsp;
                         <a class="text-danger" (click)="listData?.deleteCallback(serverData)"
-                            *ngIf="listData?.deleteCallback">Delete</a>
+                            *ngIf="listData?.deleteCallback"><i class="fa fa-remove"></i></a>
                     </td>
                 </tr>
                 <tr *ngIf="!listData?.data">
@@ -35,5 +58,5 @@
                 </tr>
             </tbody>
         </table>
-    </section>
-</infinite-scroll>
+    </div>
+</div>

@@ -3,12 +3,15 @@ import { CommonModule } from '@angular/common';
 import { CommonListComponent } from './common-list/common-list.component';
 import { InfiniteScrollComponent } from './infinite-scroll/infinite-scroll.component';
 import { SharedModule } from '../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [CommonListComponent, InfiniteScrollComponent],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [CommonListComponent, InfiniteScrollComponent]

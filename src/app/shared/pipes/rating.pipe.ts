@@ -15,7 +15,7 @@ constructor(private sanitizer: DomSanitizer) {}
       for(let i=0;i<checkedStar;i++) {
         result += '<i class="fa fa-star"></i>';
       }
-      if(checkedStar > 0) {
+      if(halfCheckedStar > 0) {
         result += '<i class="fa fa-star-half-o"></i>';
       }
       for(let j=0;j<emptyStar;j++){

@@ -13,6 +13,7 @@ import { SharedService } from '../shared/shared.service';
 export class AuthService extends ApiService{
   private authUrl = this.baseApiUrl + 'auth';
   private getUserUrl = this.baseApiUrl + 'users/1';
+  USER_DATA_URL = 'assets/data/user-data.json';
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -20,8 +21,8 @@ export class AuthService extends ApiService{
     super();
    }
 
-   login(request: LoginRequest): Observable<LoginResponse> {
-     return this.httpClient.post<LoginResponse>(`${this.authUrl}/login`, JSON.stringify(request));
+   login():Observable<Array<User>> {
+     return this.httpClient.get<Array<User>>(this.USER_DATA_URL);
    }
 
    isAuthenticated() {
@@ -35,13 +36,7 @@ export class AuthService extends ApiService{
    getSessionUser(): Observable<User> {
     return this.httpClient.get<User>(`${this.getUserUrl}`);
    }
-
-   refreshSessionUserDetails() {
-     this.getSessionUser().subscribe(response => {
-       this.sharedService.updateSessionUserDetails(response);
-     })
-   }
-
+   
    logout() {
      sessionStorage.removeItem(StorageKeys.TOKEN);
      this.router.navigateByUrl(Path.LOGIN);

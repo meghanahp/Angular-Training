@@ -9,8 +9,6 @@ import { StoreCommonModule } from '../store-common/store-common.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
-
-
 @NgModule({
   declarations: [ListComponent, AddEditComponent, ProductsComponent],
   imports: [

@@ -1,27 +1,39 @@
 <section class="container">
-    <section class="box page-center min-500">
-        <h1 class="text-center">Login</h1>
-        <form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && login()">
-            <div class="form-group">
-                <label for="username">User Name</label>
-                <input type="text" name="username" class="form-control" 
-                [(ngModel)] = "loginRequest.username" #username="ngModel" required novalidate>
+    <section class="row">
+        <section class="login-box">
+            <h1 class="text-center mb-9">Login</h1>
+            <form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && login()">
+                <div class="input-group mb-3">
+                    <input type="text" name="username" class="form-control" [(ngModel)]="loginRequest.username"
+                        placeholder="Enter User Name" #username="ngModel" required novalidate>
+                </div>
+
                 <span class="text-danger"
-                *ngIf="(username.touched || loginForm.submitted) && username.errors?.required">
-                username is required
-            </span>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" 
-                #password="ngModel"
-                class="form-control"  [(ngModel)] ="loginRequest.password" required>
-                <span class="text-danger"
-                *ngIf="(password.touched || password.submitted) && password.errors?.required">
-                Password is required
+                    *ngIf="(username.touched || loginForm.submitted) && username.errors?.required">
+                    username is required
                 </span>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
+                <div class="input-group mb-3">
+                    <input type="text" name="password" #password="ngModel" class="form-control" [mask]="maskON" placeholder="Enter Password"
+                        [maskPattern]="'xxxxxxxxxx'" [maxlength]="10" [(ngModel)]="loginRequest.password">
+                    <div class="input-group-append">
+                        <span (click)="maskON = maskState.OFF" *ngIf="maskON == maskState.ON"><i class="fa fa-eye"
+                                aria-hidden="true"></i></span>
+                        <span *ngIf="maskON == maskState.OFF" (click)="maskON=maskState.ON">
+                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <span class="text-danger" *ngIf="(password.touched || loginForm.submitted) && password.errors?.required">
+                    Password is required
+                </span>
+                <span class="text-danger" *ngIf="hasError">
+                    Invalid Username/Password 
+                </span>
+                <div class="form-group float-right mt-5">
+                    <button type="submit" class="btn btn-outline-primary">Login</button>
+                </div>
+            </form>
+        </section>
     </section>
 </section>

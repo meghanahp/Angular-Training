@@ -2,6 +2,7 @@ export class ListData {
     title: string;
     headers: Array<string>;
     dataRows: Array<RowData>;
+    sortableColumns: Array<string>;
     data: Array<any>;
     getDataCallback;
     addEditCallback;
@@ -14,6 +15,7 @@ export class ListData {
         this.addEditCallback = obj?.addEditCallback;
         this.deleteCallback = obj?.deleteCallback;
         this.getDataCallback = obj?.getDataCallback;
+        this.sortableColumns = obj?.sortableColumns;
     }
 }
 

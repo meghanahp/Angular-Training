@@ -1,11 +1,13 @@
 export const Path  = {
     LOGIN: 'login',
     HOME: '',
+    ADMIN: 'admin',
+    CUSTOMER: 'customer',
     PRODUCTS: 'products',
     PRODUCTADDEDIT:'add-edit',
     CATEGORIES: 'categories',
     USERS: 'users',
-    CART: 'cart'
+    TREE_VIEW: 'tree-view'
 }
 
 export const DataType = {
@@ -13,11 +15,14 @@ export const DataType = {
     NUMBER: 'number',
     CURRENCY: 'currency',
     IMAGE: 'image',
-    OBJECT: 'obj'
+    OBJECT: 'obj',
+    PHONE: 'phone',
+    RATINGS: 'ratings'
 
 }
 export const StorageKeys = {
-    TOKEN: 'token'
+    TOKEN: 'token',
+    ADMIN: 'admin'
 }
 
 export const Pagination = {
@@ -27,4 +32,16 @@ export const Pagination = {
 export class Constant {
     PATH = Path;
     STORAGE_KEYS = StorageKeys;
+}
+
+export const MaskState = {
+    ON: 'on',
+    OFF: 'off'
+}
+
+export const MaskDataType = {
+    NUMERIC: '0',
+    TEXT: '1',
+    ALPHANUMERIC: '2',
+    ALLOWALL:'3'
 }
