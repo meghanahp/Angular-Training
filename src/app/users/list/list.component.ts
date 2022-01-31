@@ -31,6 +31,7 @@ export class ListComponent implements OnInit {
   loadInitialData() {
     this.tableData = new ListData();
     this.tableData.title = "Users List";
+    this.tableData.isFilterEnabled = false;
     this.tableData.sortableColumns =
       [
         UsersListTitles.NAME,

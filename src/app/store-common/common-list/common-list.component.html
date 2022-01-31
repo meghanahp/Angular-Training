@@ -20,7 +20,7 @@
     <div class="col-md-3">
         <ng-content></ng-content>
     </div>
-    <div class="col-md-9">
+    <div [ngClass]="listData?.isFilterEnabled ? 'col-md-9': 'col-md-12'">
         <table class="table table-dark">
             <thead>
                 <tr>

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import { TreeViewModule } from './tree-view/tree-view.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthService } from './security/auth.service';
+import { StoreCommonModule } from './store-common/store-common.module';
 
 function initAppInitFactory(httpClient: HttpClient, sharedService: SharedService, authService: AuthService) {
   return () => {
@@ -35,7 +36,8 @@ function initAppInitFactory(httpClient: HttpClient, sharedService: SharedService
     SecurityModule,
     DashboardModule,
     BrowserAnimationsModule,
-    TreeViewModule
+    TreeViewModule,
+    StoreCommonModule
   ],
   providers: [
     {
@@ -51,6 +53,7 @@ function initAppInitFactory(httpClient: HttpClient, sharedService: SharedService
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

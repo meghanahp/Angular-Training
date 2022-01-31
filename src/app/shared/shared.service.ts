@@ -6,6 +6,8 @@ import { User } from '../models';
   providedIn: 'root'
 })
 export class SharedService {
+  
+  public isLoading = new BehaviorSubject(false);
   private sessionUserSubject =new BehaviorSubject<User>(null);
   constructor() { }
 
@@ -15,5 +17,13 @@ export class SharedService {
 
   onUpdateSession(): Observable<User>{
     return this.sessionUserSubject.asObservable();
+  }  
+  
+  updateIsLoading(val): void {
+    this.isLoading.next(val);
+  }
+
+  onUpdateIsLoading(): Observable<boolean>{
+    return this.isLoading.asObservable();
   }  
 }

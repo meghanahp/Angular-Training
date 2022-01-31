@@ -7,6 +7,7 @@ export class ListData {
     getDataCallback;
     addEditCallback;
     deleteCallback;
+    isFilterEnabled;
 
     constructor(obj?: ListData) {
         this.title = obj?.title;
@@ -16,6 +17,7 @@ export class ListData {
         this.deleteCallback = obj?.deleteCallback;
         this.getDataCallback = obj?.getDataCallback;
         this.sortableColumns = obj?.sortableColumns;
+        this.isFilterEnabled = obj?.isFilterEnabled ? obj?.isFilterEnabled: false;
     }
 }
 
